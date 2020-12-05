@@ -1,0 +1,11 @@
+"Gamemode"
+{
+
+	"base"		"base"
+	"title"		"Faction Fortress"
+	"maps"		"^gf_|^ff_"
+	"menusystem"		"1"
+	
+	"Settings"
+
+}
