@@ -10,7 +10,7 @@ PLAYER_CLASSES = {
 		name = "Scout",
 		health = 125,
 		speed =  310,
-		weapons = {"weapon_crowbar", "weapon_shotgun"},
+		weapons = {"weapon_crowbar", "weapon_ffscoutgun"},
 		model = "models/player/group01/male_07.mdl",
 	},
 		{
@@ -26,5 +26,12 @@ PLAYER_CLASSES = {
 		speed =  220,
 		weapons = {"weapon_crowbar", "weapon_slam", "weapon_frag"},
 		model = "models/player/odessa.mdl",
+	},
+	{
+		name = "Heavy Weapons",
+		health = 300,
+		speed =  175,
+		weapons = {"weapon_crowbar", "weapon_ar2"},
+		model = "models/player/monk.mdl",
 	}
 }

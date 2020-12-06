@@ -12,6 +12,7 @@ function GM:PlayerInitialSpawn( ply )
 
 	ply:SetupTeam( 0 )
 	ply:SetNWInt("playerClass", 1)
+	ply:SetNWBool("isSpectator", true) 
 	
 end
 
@@ -35,25 +36,72 @@ function GM:PlayerSetModel(ply)
 	ply:SetModel(plyClass.model)
 end
 
-function GM:PlayerSay ( ply, text )
-	if (text == "!join") then
-	
-		ply:SetupTeam( math.random(1, 2) )
-		
-		return
-	end
-	
-	if (text == "!scout") then
-		ply:Kill()
-		ply:SetNWInt("playerClass", 2)
-		
-	elseif (text == "!soldier") then
-		ply:Kill()
-		ply:SetNWInt("playerClass", 3)
-		
-	elseif (text == "!demo") then
-		ply:Kill()
-		ply:SetNWInt("playerClass", 4)
-		
+util.AddNetworkString ( "classmenu" )
+util.AddNetworkString ( "ply_changetoScout" )
+util.AddNetworkString ( "ply_changetoSoldier" )
+util.AddNetworkString ( "ply_changetoDemolitions" )
+util.AddNetworkString ( "ply_changetoHeavy" )
+util.AddNetworkString ( "teammenu" )
+util.AddNetworkString ( "ply_changetoDemolitions" )
+util.AddNetworkString ( "ply_joinBuilders" )
+util.AddNetworkString ( "ply_joinMingers" )
+
+function GM:ShowSpare2( ply )
+	if (ply:GetNWBool("isSpectator") == false) then
+		net.Start( "classmenu" )
+		net.Send ( ply )
 	end
 end
+
+function GM:ShowSpare1( ply )
+
+	net.Start( "teammenu" )
+	net.Send ( ply )
+	
+end
+
+net.Receive( "ply_changetoScout", function(len, ply)
+	ply:Kill()
+	ply:SetNWInt("playerClass", 2)
+	print(ply:Nick() .. " switched to Scout.")
+
+end)
+
+net.Receive( "ply_changetoSoldier", function(len, ply)
+	ply:Kill()
+	ply:SetNWInt("playerClass", 3)
+	print(ply:Nick() .. " switched to Soldier.")
+
+end)
+
+net.Receive( "ply_changetoDemolitions", function(len, ply)
+	ply:Kill()
+	ply:SetNWInt("playerClass", 4)
+	print(ply:Nick() .. " switched to Demolitions.")
+
+end)
+
+net.Receive( "ply_changetoHeavy", function(len, ply)
+	ply:Kill()
+	ply:SetNWInt("playerClass", 5)
+	print(ply:Nick() .. " switched to Heavy Weapons.")
+
+end)
+
+net.Receive( "ply_joinMingers", function(len, ply)
+	ply:Kill()
+	ply:SetupTeam( 1 )
+	ply:SetNWBool("isSpectator", false) 
+	print(ply:Nick() .. " switched to MINGERS team.")
+
+end)
+
+net.Receive( "ply_joinBuilders", function(len, ply)
+	ply:Kill()
+	ply:SetupTeam( 2 )
+	ply:SetNWBool("isSpectator", false) 
+	print(ply:Nick() .. " switched to Construct.Inc team.")
+
+end)
+
+
