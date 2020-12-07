@@ -18,7 +18,7 @@ PLAYER_CLASSES = {
 		health = 200,
 		speed =  210,
 		weapons = {"weapon_crowbar", "weapon_rpg"},
-		model = "models/player/barney.mdl",
+		model = "models/player/police.mdl",
 	},
 	{
 		name = "Demolitions",
@@ -30,8 +30,15 @@ PLAYER_CLASSES = {
 	{
 		name = "Heavy Weapons",
 		health = 300,
-		speed =  175,
-		weapons = {"weapon_crowbar", "weapon_ar2"},
+		speed =  165,
+		weapons = {"weapon_crowbar", "weapon_ffminigun"},
 		model = "models/player/monk.mdl",
+	},
+	{
+		name = "Sniper",
+		health = 125,
+		speed =  250,
+		weapons = {"weapon_crowbar", "weapon_ffsniperrifle"},
+		model = "models/player/eli.mdl",
 	}
 }

@@ -2,13 +2,13 @@ AddCSLuaFile()
 
 SWEP.Author					=	"seattlevidya"
 SWEP.Base					=	"weapon_base"
-SWEP.PrintName				=	"Shotgun"
+SWEP.PrintName				=	"Minigun"
 SWEP.Instructions			=	""
-SWEP.ViewModel				=	"models/weapons/c_shotgun.mdl"
+SWEP.ViewModel				=	"models/weapons/c_irifle.mdl"
 SWEP.ViewModelFlip			=	false
 SWEP.UseHands				=	true
-SWEP.WorldModel				=	"models/weapons/w_357.mdl"
-SWEP.SetHoldType			=	"shotgun"
+SWEP.WorldModel				=	"models/weapons/w_irifle.mdl"
+SWEP.SetHoldType			=	"ar2"
 SWEP.Weight					=	2
 
 SWEP.AutoSwitchTo			=	true
@@ -23,24 +23,24 @@ SWEP.DrawCrosshair			=	true
 SWEP.Spawnable				=	false
 SWEP.AdminSpawnable			=	false
 
-SWEP.Primary.ClipSize		=	6
-SWEP.Primary.DefaultClip	=	6
-SWEP.Primary.Ammo			=	"Buckshot"
+SWEP.Primary.ClipSize		=	200
+SWEP.Primary.DefaultClip	=	200
+SWEP.Primary.Ammo			=	"AR2"
 SWEP.Primary.Automatic		=	true
-SWEP.Primary.Recoil			=	3
-SWEP.Primary.Damage			=	15
-SWEP.Primary.NumShots		=	9
+SWEP.Primary.Recoil			=	5
+SWEP.Primary.Damage			=	5
+SWEP.Primary.NumShots		=	1
 SWEP.Primary.Spread			=	0.1
-SWEP.Primary.Cone			=	0.085
-SWEP.Primary.Delay			=	0.6
+SWEP.Primary.Cone			=	0
+SWEP.Primary.Delay			=	0.1
 
 SWEP.ShouldDropOnDie		=	false
 
-local ShootSound	=	Sound("Weapon_Shotgun.Double")
+local ShootSound	=	Sound("Weapon_AR2.Single")
 
 function SWEP:Initialize()
 
-	self.SetHoldType			=	"shotgun"
+	self.SetHoldType			=	"ar2"
 
 end
 
@@ -60,7 +60,7 @@ function SWEP:PrimaryAttack()
 		Bullet.Dir		=	ply:GetAimVector()
 		Bullet.Spread	=	Vector( self.Primary.Spread, self.Primary.Spread, 0 )
 		Bullet.Tracer	=	1
-		Bullet.Damage	=	self.Primary.Damage + math.random(0, 25)
+		Bullet.Damage	=	self.Primary.Damage + math.random(1, 10) 
 		Bullet.AmmoType	=	self.Primary.Ammo
 	
 	self:FireBullets( Bullet )
@@ -76,5 +76,6 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:CanSecondaryAttack()
-	return false
+	local ply = self:GetOwner()
+	
 end

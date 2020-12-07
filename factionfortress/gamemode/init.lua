@@ -22,6 +22,7 @@ function GM:PlayerLoadout(ply)
 	ply:SetWalkSpeed(plyClass.speed)
 	ply:SetRunSpeed(plyClass.speed)
 	ply:SetHealth( plyClass.health )
+	ply:GiveAmmo( 15, "Buckshot", true )
 	
 	for k, v in pairs(plyClass.weapons) do
 		ply:Give(v) 
@@ -42,7 +43,7 @@ util.AddNetworkString ( "ply_changetoSoldier" )
 util.AddNetworkString ( "ply_changetoDemolitions" )
 util.AddNetworkString ( "ply_changetoHeavy" )
 util.AddNetworkString ( "teammenu" )
-util.AddNetworkString ( "ply_changetoDemolitions" )
+util.AddNetworkString ( "ply_changetoSniper" )
 util.AddNetworkString ( "ply_joinBuilders" )
 util.AddNetworkString ( "ply_joinMingers" )
 
@@ -85,6 +86,13 @@ net.Receive( "ply_changetoHeavy", function(len, ply)
 	ply:Kill()
 	ply:SetNWInt("playerClass", 5)
 	print(ply:Nick() .. " switched to Heavy Weapons.")
+
+end)
+
+net.Receive( "ply_changetoSniper", function(len, ply)
+	ply:Kill()
+	ply:SetNWInt("playerClass", 6)
+	print(ply:Nick() .. " switched to Sniper.")
 
 end)
 
