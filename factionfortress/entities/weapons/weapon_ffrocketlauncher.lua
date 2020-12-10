@@ -30,7 +30,7 @@ SWEP.Primary.Automatic		=	true
 SWEP.Primary.Recoil			=	0
 SWEP.Primary.Damage			=	100
 SWEP.Primary.Numshots		=	1
-SWEP.Primary.Spread			=	0.1
+SWEP.Primary.Spread			=	0
 SWEP.Primary.Cone			=	0
 SWEP.Primary.Delay			=	0.8
 

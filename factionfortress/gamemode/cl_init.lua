@@ -1,5 +1,74 @@
 include("shared.lua")
 
+surface.CreateFont("MinorHUDFont", {
+	font = "Arial",
+	size = 22,
+	weight = 500,
+	
+})
+
+surface.CreateFont("HealthFont", {
+	font = "Arial",
+	size = 80,
+	weight = 600,
+	
+})
+
+local hudCivilian = Material("vgui/civilian.png")
+local hudScout = Material("vgui/scout.png")
+local hudSoldier = Material("vgui/soldier.png")
+local hudDemo = Material("vgui/demo.png")
+local hudHeavy = Material("vgui/heavy.png")
+local hudSniper = Material("vgui/sniper.png")
+
+local ply = LocalPlayer() 
+
+net.Receive( "ply_hasSpawned", function(len, ply)
+	hook.Add( "HUDPaint", "HUDPaint_DrawABox", function()
+		local client = LocalPlayer()
+		local clswep = client:GetActiveWeapon()
+		--Borders--
+		surface.SetDrawColor(0, 0, 0, 150)
+		surface.DrawRect(30, ScrH() - 110, 200, 100)
+		surface.DrawRect(ScrW() - 230, ScrH() - 110, 200, 100)
+		--Health--
+		draw.DrawText( 'HEALTH', "MinorHUDFont", 165, ScrH() - 105, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+		draw.DrawText( client:Health(), "HealthFont", 160, ScrH() - 90, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+		--Ammo--
+		if (clswep:IsValid()) then
+			draw.DrawText( 'AMMO', "MinorHUDFont", ScrW() - 135, ScrH() - 105, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+			draw.DrawText( clswep:Clip1(), "HealthFont", ScrW() - 135, ScrH() - 90, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+			if (!clswep == 'weapon_crowbar') then 
+					draw.DrawText( clswep:Ammo1(), "MinorHUDFont", ScrW() - 80, ScrH() - 90, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)
+			return end
+		end
+		-- Class Portrait
+		if (client:GetNWInt("playerClass") == 1 ) then
+			surface.SetMaterial(hudCivilian)
+		elseif (client:GetNWInt("playerClass") == 2 ) then
+			surface.SetMaterial(hudScout)
+		elseif (client:GetNWInt("playerClass") == 3 ) then
+			surface.SetMaterial(hudSoldier)
+		elseif (client:GetNWInt("playerClass") == 4 ) then
+			surface.SetMaterial(hudDemo)
+		elseif (client:GetNWInt("playerClass") == 5 ) then
+			surface.SetMaterial(hudHeavy)
+		elseif (client:GetNWInt("playerClass") == 6 ) then
+			surface.SetMaterial(hudSniper)
+		end
+		surface.SetDrawColor(255, 255, 255, 255)
+		surface.DrawTexturedRect(25, ScrH() - 135, 79, 128)
+	end)
+end)
+
+function GM:HUDShouldDraw( name )
+	local hud = {"CHudHealth", "CHudAmmo", "CHudBattery", "CHudSecondaryAmmo"}
+	for k, element in pairs( hud ) do
+		if name == element then return false end
+	end
+	return true
+end 
+
 net.Receive( "classmenu", function()
 	if (!frame) then
 		local frame = vgui.Create( "DFrame" )
@@ -98,7 +167,12 @@ net.Receive( "classmenu", function()
 	end
 end)
 
+
+
 net.Receive( "teammenu", function()
+
+
+
 	if (!frame) then
 		local frame = vgui.Create( "DFrame" )
 		frame:SetSize( 640, 360 )
@@ -144,3 +218,4 @@ net.Receive( "teammenu", function()
 		end
 	end
 end)
+

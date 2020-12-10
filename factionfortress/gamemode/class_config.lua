@@ -17,14 +17,14 @@ PLAYER_CLASSES = {
 		name = "Soldier",
 		health = 200,
 		speed =  210,
-		weapons = {"weapon_crowbar", "weapon_rpg"},
+		weapons = {"weapon_crowbar", "weapon_ffrocketlauncher"},
 		model = "models/player/police.mdl",
 	},
 	{
 		name = "Demolitions",
 		health = 175,
 		speed =  220,
-		weapons = {"weapon_crowbar", "weapon_slam", "weapon_frag"},
+		weapons = {"weapon_crowbar", "weapon_slam", "weapon_ffpipelauncher"},
 		model = "models/player/odessa.mdl",
 	},
 	{

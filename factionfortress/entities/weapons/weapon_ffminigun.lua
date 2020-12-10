@@ -28,7 +28,7 @@ SWEP.Primary.DefaultClip	=	200
 SWEP.Primary.Ammo			=	"AR2"
 SWEP.Primary.Automatic		=	true
 SWEP.Primary.Recoil			=	5
-SWEP.Primary.Damage			=	5
+SWEP.Primary.Damage			=	15
 SWEP.Primary.NumShots		=	1
 SWEP.Primary.Spread			=	0.1
 SWEP.Primary.Cone			=	0
@@ -52,6 +52,7 @@ function SWEP:PrimaryAttack()
 	
 	local ply = self:GetOwner()
 	
+
 	ply:LagCompensation( true )
 	
 	local Bullet = {}
@@ -70,10 +71,10 @@ function SWEP:PrimaryAttack()
 	self.BaseClass.ShootEffects( self )
 	self:TakePrimaryAmmo( 1 )
 	self:SetNextPrimaryFire(  CurTime() + self.Primary.Delay )
-	
 	ply:LagCompensation( false )
 	
 end
+
 
 function SWEP:CanSecondaryAttack()
 	local ply = self:GetOwner()

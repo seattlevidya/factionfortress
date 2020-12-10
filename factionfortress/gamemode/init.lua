@@ -12,7 +12,9 @@ function GM:PlayerInitialSpawn( ply )
 
 	ply:SetupTeam( 0 )
 	ply:SetNWInt("playerClass", 1)
-	ply:SetNWBool("isSpectator", true) 
+	ply:SetNWBool("isSpectator", true)
+	net.Start( "ply_hasSpawned" )
+	net.Send( ply )
 	
 end
 
@@ -23,6 +25,8 @@ function GM:PlayerLoadout(ply)
 	ply:SetRunSpeed(plyClass.speed)
 	ply:SetHealth( plyClass.health )
 	ply:GiveAmmo( 15, "Buckshot", true )
+	ply:GiveAmmo( 15, "RPG_Round", true )
+	ply:SetJumpPower( 200 )
 	
 	for k, v in pairs(plyClass.weapons) do
 		ply:Give(v) 
@@ -46,6 +50,7 @@ util.AddNetworkString ( "teammenu" )
 util.AddNetworkString ( "ply_changetoSniper" )
 util.AddNetworkString ( "ply_joinBuilders" )
 util.AddNetworkString ( "ply_joinMingers" )
+util.AddNetworkString ( "ply_hasSpawned" )
 
 function GM:ShowSpare2( ply )
 	if (ply:GetNWBool("isSpectator") == false) then
@@ -99,7 +104,8 @@ end)
 net.Receive( "ply_joinMingers", function(len, ply)
 	ply:Kill()
 	ply:SetupTeam( 1 )
-	ply:SetNWBool("isSpectator", false) 
+	ply:SetNWBool("isSpectator", false)
+	ply:Spawn()
 	print(ply:Nick() .. " switched to MINGERS team.")
 
 end)
@@ -108,6 +114,7 @@ net.Receive( "ply_joinBuilders", function(len, ply)
 	ply:Kill()
 	ply:SetupTeam( 2 )
 	ply:SetNWBool("isSpectator", false) 
+	ply:Spawn()
 	print(ply:Nick() .. " switched to Construct.Inc team.")
 
 end)
